@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import net.javaguides.springboot.model.Role;
 import net.javaguides.springboot.model.User;
 import net.javaguides.springboot.repository.UserRepository;
-import net.javaguides.springboot.web.dto.UserRegistrationDto;
+import net.javaguides.springboot.controller.dto.UserRegistrationDto;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,7 +35,12 @@ public class UserServiceImpl implements UserService {
 		User user=new User(registrationDto.getFirstName(),
 							registrationDto.getLastName(), 
 							registrationDto.getEmail(),
-							passwordEncoder.encode(registrationDto.getPassword()), 
+							passwordEncoder.encode(registrationDto.getPassword()),
+							registrationDto.getIdade(),
+							registrationDto.getTelefone(),
+							registrationDto.getDataNascimento(),
+							registrationDto.getSexo(),
+							registrationDto.getCpf(),
 							Arrays.asList(new Role("ROLE_USER")));
 		
 		return userRepository.save(user);

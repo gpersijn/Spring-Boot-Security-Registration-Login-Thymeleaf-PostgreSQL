@@ -1,5 +1,7 @@
 package net.javaguides.springboot.model;
 
+import lombok.Data;
+
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -14,92 +16,77 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="users", uniqueConstraints={@UniqueConstraint(columnNames={"email"})})
-public class User 
-{
-	
+@Data
+public class User {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
-	
-//	@Column(unique = true)
+
+	@NotEmpty(message = "name cannot be empty")
+	@NotNull(message = "name cannot be null")
 	private String email;
-	
+
 	private String password;
-	
+
+	@NotEmpty(message = "name cannot be empty")
+	@NotNull(message = "name cannot be null")
+	private String idade;
+
+	@NotEmpty(message = "name cannot be empty")
+	@NotNull(message = "name cannot be null")
+	private String telefone;
+
+	@NotEmpty(message = "name cannot be empty")
+	@NotNull(message = "name cannot be null")
+	private String dataNascimento;
+
+	@NotEmpty(message = "name cannot be empty")
+	@NotNull(message = "name cannot be null")
+	private String sexo;
+
+	@NotEmpty(message = "name cannot be empty")
+	@NotNull(message = "name cannot be null")
+	private String cpf;
+
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "users_roles",
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
-	
-	public User() {}
-	
-	public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+
+	public User() {
+	}
+
+	public User(String firstName, String lastName, String email, String password,
+				String idade, String telefone, String dataNascimento, String sexo,
+				String cpf,	Collection<Role> roles) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.idade = idade;
+		this.telefone = telefone;
+		this.dataNascimento = dataNascimento;
+		this.sexo = sexo;
+		this.cpf = cpf;
 		this.roles = roles;
 	}
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Collection<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
-	}
 
 	@Override
 	public String toString() {
@@ -107,6 +94,4 @@ public class User
 				+ ", password=" + password + ", roles=" + roles + "]";
 	}
 
-	
-	
 }
