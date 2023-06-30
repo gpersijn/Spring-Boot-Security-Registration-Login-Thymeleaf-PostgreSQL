@@ -36,16 +36,19 @@ public class UserServiceImpl implements UserService {
 							registrationDto.getLastName(), 
 							registrationDto.getEmail(),
 							passwordEncoder.encode(registrationDto.getPassword()),
-							registrationDto.getIdade(),
-							registrationDto.getTelefone(),
-							registrationDto.getDataNascimento(),
-							registrationDto.getSexo(),
+							registrationDto.getPhone(),
+							registrationDto.getDateOfBirth(),
+							registrationDto.getSex(),
 							registrationDto.getCpf(),
 							Arrays.asList(new Role("ROLE_USER")));
 		
 		return userRepository.save(user);
 	}
 
+	// @Override
+    // public User findUserByEmail(String email) {
+    //     return userRepository.findByEmail(email);
+    // }
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException 
